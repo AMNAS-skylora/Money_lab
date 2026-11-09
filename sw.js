@@ -1,4 +1,4 @@
-const CACHE='money-lab-v2';
+const CACHE='money-lab-v2.1';
 const SHELL=['./','./index.html','./style.css','./app.mjs','./core.mjs','./storage.mjs','./excel.mjs','./excel-worker.js','./vendor/exceljs.min.js','./manifest.webmanifest','./icon.svg','./icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL))));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('money-lab-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
