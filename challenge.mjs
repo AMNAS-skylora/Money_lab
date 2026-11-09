@@ -1,7 +1,7 @@
 // Independent challenge records; never reads or writes Money Lab financial state.
 const KEY='moneylab.challenge90.v1',weights=[450,1500,3000,5000,8000,12000,17000,23000,30050];
-const $=s=>document.querySelector(s),fmt=p=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR'}).format(p/100),day=s=>Math.floor(Date.parse(s+'T00:00:00Z')/86400000),today=()=>new Date().toLocaleDateString('en-CA');
-const paise=s=>{if(!/^\\d+(?:\\.\\d{1,2})?$/.test(String(s).trim()))throw Error('Enter a valid positive amount');return Math.round(Number(s)*100)};
+const $=s=>document.querySelector(s),fmt=p=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR'}).format(p/100),day=s=>Math.floor(Date.parse(s+'T00:00:00Z')/86400000),today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
+const paise=s=>{if(!/^\d+(?:\.\d{1,2})?$/.test(String(s).trim()))throw Error('Enter a valid positive amount');return Math.round(Number(s)*100)};
 const defaultData=()=>({target:10000000,start:today(),duration:90,mode:'earning',method:'progressive',opening:0,rows:[],revisions:[],created:Date.now()});
 let d;try{d={...defaultData(),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch{d=defaultData()}
 let selected=0,filter='all';
