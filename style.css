@@ -67,3 +67,17 @@ nav button:active{transform:scale(.97)}
 #entry-dialog small{font-size:12px;line-height:1.4}
 #entry-dialog button{font-size:14px}
 @media(max-width:480px){#entry-dialog{padding:15px}#entry-dialog .two{gap:8px}}
+
+/* Entry modal: lighter, smaller-looking text while retaining 16px iOS focus safety. */
+#entry-dialog input:not([type=checkbox]):not([type=radio]):not([type=file]),
+#entry-dialog select,
+#entry-dialog textarea{
+  font-size:16px;
+  font-weight:400;
+  letter-spacing:-.035em;
+  line-height:1.25;
+}
+#entry-dialog select option{font-weight:400;font-size:16px}
+#entry-dialog label{font-weight:400;font-size:13px}
+#entry-dialog button{font-weight:400}
+#entry-dialog input::placeholder{font-weight:400;opacity:.7}
