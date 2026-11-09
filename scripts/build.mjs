@@ -1,0 +1,1 @@
+import './icons.mjs';import{mkdirSync,copyFileSync,cpSync,rmSync}from'node:fs';rmSync('dist',{recursive:true,force:true});mkdirSync('dist');for(const f of ['index.html','style.css','app.mjs','ledger.mjs','manifest.webmanifest','icon.svg','sw.js'])copyFileSync(f,'dist/'+f);cpSync('icons','dist/icons',{recursive:true});
