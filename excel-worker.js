@@ -1,0 +1,1 @@
+importScripts('./vendor/exceljs.min.js');self.onmessage=async e=>{try{const {writeExcel,readExcel}=await import('./excel.mjs');const result=e.data.action==='write'?await writeExcel(e.data.data,ExcelJS):await readExcel(e.data.data,ExcelJS);self.postMessage({result});}catch(error){self.postMessage({error:error.message});}};

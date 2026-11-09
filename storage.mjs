@@ -1,0 +1,14 @@
+import{blank,migrate,validate}from'./core.mjs';
+const KEY='moneylab.v2',REC='moneylab.v2.recovery';let db=null,known=0,last=null,expectedDB=0;
+function open(){return new Promise((resolve,reject)=>{const q=indexedDB.open('moneylab',1);q.onupgradeneeded=()=>q.result.createObjectStore('records');q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error);q.onblocked=()=>reject(Error('Close other Money Lab tabs.'));});}
+function get(key){return new Promise((resolve,reject)=>{const tx=db.transaction('records'),q=tx.objectStore('records').get(key);q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error);});}
+function parse(raw){if(!raw)return null;try{return migrate(typeof raw==='string'?JSON.parse(raw):raw);}catch{return null;}}
+export async function loadState(){let warning='',bad=false,records=[];try{db=await open();const primary=await get('state');expectedDB=parse(primary)?.revision||0;records.push(primary,await get('previous'));}catch{warning='Recovery database unavailable. Keep an Excel backup.';}for(const key of [KEY,REC,'moneylab.v1'])try{records.push(localStorage.getItem(key));}catch{warning='Device storage unavailable.';}
+const candidates=records.filter(Boolean).map(v=>{const d=parse(v);if(!d)bad=true;return d;}).filter(Boolean).sort((a,b)=>b.revision-a.revision);
+const state=candidates[0]||blank();known=state.revision;last=state;
+return{state,warning:bad?'Damaged local copy. Export Excel now.':warning,blocked:bad&&!candidates.length,recovered:!!candidates.length&&records[0]!==undefined&&parse(records[0])?.revision!==state.revision};}
+export async function saveState(next){validate(next);const value={...next,revision:known+1};
+if(db){await new Promise((resolve,reject)=>{const tx=db.transaction('records','readwrite'),s=tx.objectStore('records'),q=s.get('state');q.onsuccess=()=>{const existing=parse(q.result);if(existing&&existing.revision!==expectedDB){tx.abort();return;}if(last)s.put(last,'previous');s.put(value,'state');};tx.oncomplete=resolve;tx.onabort=()=>reject(Error('Data changed in another tab. Reload before saving.'));tx.onerror=()=>reject(Error('Device storage is full or unavailable. Export Excel now.'));});}
+let warning='';try{const raw=localStorage.getItem(KEY);if(!db){const existing=parse(raw);if(existing&&existing.revision!==known)throw Error('STALE');}if(raw)localStorage.setItem(REC,raw);localStorage.setItem(KEY,JSON.stringify(value));}catch(e){if(!db)throw Error(e.message==='STALE'?'Data changed in another tab. Reload.':'Storage unavailable. Save Excel before leaving.');warning='Secondary copy failed. Save Excel backup.';}
+known=value.revision;expectedDB=value.revision;last=value;return{state:value,warning};}
+export async function persistPermission(){try{return await navigator.storage?.persist?.()||false;}catch{return false;}}

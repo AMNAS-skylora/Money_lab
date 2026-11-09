@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -13,9 +14,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node --check app.mjs && node --check sw.js
+      - run: npm install --ignore-scripts
+      - run: node --check app.mjs && node --check core.mjs && node --check storage.mjs && node --check excel.mjs && node --check excel-worker.js && node --check sw.js
       - run: npm test
       - run: npm run build
+      - run: npx playwright install --with-deps webkit
+      - run: npm run test:mobile
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: mobile-test-traces
+          path: test-results/
       - uses: actions/upload-artifact@v4
         with:
           name: money-lab-site
