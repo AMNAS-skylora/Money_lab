@@ -44,3 +44,13 @@ dialog .two,dialog .three{min-width:0}
   .button-row button{white-space:normal;min-height:44px}
 }
 @media(max-width:350px){dialog .two{grid-template-columns:1fr}}
+
+
+/* Bottom tab bar: readable icon-first mobile navigation */
+nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:4px;box-sizing:border-box;width:100%;padding:8px max(10px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-right))}
+nav button{width:100%;max-width:none;min-width:0;min-height:65px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:7px 2px;border-radius:14px;white-space:normal}
+nav .nav-icon{display:block;flex:none;width:29px;height:29px;font-size:initial}
+nav .nav-label{display:block;font-size:11px;font-weight:650;line-height:1.2;text-align:center;white-space:nowrap}
+nav button.active{background:#e7f1e9;color:#165c42}
+nav button:active{transform:scale(.97)}
+@media(max-width:360px){nav{gap:2px;padding-left:6px;padding-right:6px}nav button{min-height:62px}nav .nav-icon{width:27px;height:27px}nav .nav-label{font-size:10px}}
