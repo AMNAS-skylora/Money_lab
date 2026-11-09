@@ -1,2 +1,2 @@
 import{defineConfig}from'@playwright/test';
-export default defineConfig({testDir:'./browser-tests',timeout:60000,workers:1,retries:0,use:{browserName:'webkit',viewport:{width:375,height:667},isMobile:true,hasTouch:true,baseURL:'http://127.0.0.1:5173',trace:'retain-on-failure'},webServer:{command:'python3 -m http.server 5173 --directory dist',url:'http://127.0.0.1:5173',reuseExistingServer:false},reporter:'list'});
+export default defineConfig({testDir:'./browser-tests',timeout:60000,workers:1,retries:0,use:{browserName:'webkit',viewport:{width:375,height:667},isMobile:true,hasTouch:true,baseURL:'http://127.0.0.1:5173',trace:'retain-on-failure'},webServer:{command:'node scripts/qa-server.mjs',url:'http://127.0.0.1:5173',reuseExistingServer:false},reporter:'list'});
