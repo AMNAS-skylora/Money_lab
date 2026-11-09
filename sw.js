@@ -1,6 +1,6 @@
-const CACHE = 'money-lab-v2.1.2';
+const CACHE = 'money-lab-v2.1.3';
 const SHELL = [
-  './', './index.html', './style.css', './app.mjs', './split-studio.js', './core.mjs',
+  './', './index.html', './style.css', './app.mjs', './split-studio.js', './install-guide.js', './core.mjs',
   './storage.mjs', './excel.mjs', './excel-worker.js',
   './vendor/exceljs.min.js', './manifest.webmanifest', './icon.svg',
   './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png'
