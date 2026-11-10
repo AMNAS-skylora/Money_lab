@@ -107,3 +107,30 @@ nav[aria-label="Navigation"]{display:grid;grid-template-columns:repeat(5,minmax(
 
 /* Optional sixth nav item and debt cards */
 nav [hidden]{display:none!important}.feature-toggle{display:flex;align-items:center;gap:12px;padding:10px 0}.feature-toggle input{width:20px;height:20px;accent-color:#168c5c}.debt-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px}.debt-summary>div{display:grid;gap:8px;min-width:0}.debt-summary strong{font-size:clamp(16px,4vw,23px);overflow-wrap:anywhere}.debt-person{display:grid;gap:6px;padding:14px 0;border-bottom:1px solid #e4e9e5}.debt-person:last-child{border:0}nav{gap:2px}nav button{min-width:0}
+
+/* iPhone-first compact layout: preserve 44px touch targets */
+@media(max-width:699px){
+ body{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+ header,main{padding-inline:16px}
+ main{padding-top:8px}
+ #update-bar,#backup-bar{min-height:48px;padding:6px 10px;margin-bottom:10px;border-radius:12px;gap:8px;line-height:1.35;font-size:13px}
+ #update-bar button,#backup-bar button{font-size:13px;min-height:38px;padding:6px 8px;white-space:nowrap}
+ #debts .heading{gap:10px;align-items:center;margin:12px 0 14px}
+ #debts .heading h1{font-size:clamp(23px,6vw,29px);line-height:1.2;letter-spacing:-.7px;margin:0;min-width:0}
+ #debts .heading button{font-size:14px;padding:9px 12px;flex-shrink:0;min-height:44px}
+ #debts .card{margin:12px 0;padding:16px;border-radius:16px}
+ #debts .debt-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ #debts .debt-summary>div{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+ #debts .debt-summary small{display:block;font-size:12px;line-height:1.3}
+ #debts .debt-summary strong{display:block;font-size:clamp(19px,5.4vw,25px);line-height:1.2;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+ #debts .card h2{font-size:17px;line-height:1.35}
+ #debts .card p{font-size:13px}
+ #debts>small{display:block;font-size:11px;line-height:1.5;margin:12px 2px 0}
+ nav[aria-label="Navigation"]{padding:8px 6px calc(8px + env(safe-area-inset-bottom));gap:2px}
+ nav[aria-label="Navigation"] button{font-size:11px;min-height:58px;padding:6px 2px}
+ nav[aria-label="Navigation"] .nav-icon{width:24px;height:24px}
+ nav[aria-label="Navigation"] .nav-label{font-size:11px;line-height:1.15}
+ nav[aria-label="Navigation"] .center-home{transform:translateY(-9px);min-height:66px;border-radius:19px}
+}
+nav[aria-label="Navigation"]:has([data-view="challenge"]:not([hidden])){grid-template-columns:repeat(6,minmax(0,1fr))}
+@media(max-width:380px){nav[aria-label="Navigation"]:has([data-view="challenge"]:not([hidden])) .nav-label{font-size:9px}}
