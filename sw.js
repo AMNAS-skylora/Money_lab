@@ -1,4 +1,4 @@
-const CACHE = 'money-lab-v2.1.8';
+const CACHE = 'money-lab-v2.1.9';
 const SHELL = [
   './', './index.html', './style.css', './app.mjs', './challenge.mjs','./debts.mjs', './core.mjs',
   './storage.mjs', './excel.mjs', './excel-worker.js',
